@@ -49,6 +49,17 @@
                             | (Child) poly.childMethod는 불가.  WHY? : 순서가 poly.childMethod가 먼저 실행되어 컴파일 오류 일어남.
                             | 업캐스팅(생략 권장) 『자식타입 -> 부모타입』 Parent parent1 = (Parent) child;
                             | ** 업캐스팅 목적 ** : 매개변수로 타입을 맞추기 위해서
-          |다운캐스팅과 주의점|<img width="564" height="228" alt="image" src="https://github.com/user-attachments/assets/073580b1-734c-486e-b1f3-db3a86d4f3c6" />
+             |다운캐스팅과 주의점|<img width="564" height="228" alt="image" src="https://github.com/user-attachments/assets/073580b1-734c-486e-b1f3-db3a86d4f3c6" />
                             | parent2에는 자식클래스의 정보가 메모리에 일절 없음. 그러므로 다운개스팅이 불가.
+                            | 업캐스팅으로 부모타입에 담겼던 객체에서 다시 꺼내는 게 다운캐스팅
+                            |-> Parent p = new Child(); // 메모리에 Child가 있음 (업캐스팅)
+                            |-> Child c = (Child) p;    // 가능! 원래 Child였으니까 (다운캐스팅)
 
+               | instanceof | instanceof란?
+                            | 해당 객체가 어떤 인스턴스를 참조하고있는지 확인하기 위한 기능. (다운캐스팅 하기 전에 실제로 그 타입이 있는지 확인할 때 사용)
+                            |<img width="686" height="382" alt="image" src="https://github.com/user-attachments/assets/d3f8fe6f-9105-4221-a307-5d2a1927f3fa" />
+                            |=>instanceof로 타입 확인 후 안전하게 다운캐스팅하기
+                            |new Child() instanceof Parent => 트루로 나옴 **자식 객체는 부모 정보도 함께 메모리에 올라가기 때문에 부모 instanceof도 true**
+                            
+      | 다형성과 메서드 오버라이딩 | **오버라이딩 된 메서드가 항상 우선권을 가진다**
+                            | **오버라이딩은 실제 생성된 객체 기준으로 실행된다.** (부모만 객체생성되면 오버라이딩된 자식 메소드 실행 X)
