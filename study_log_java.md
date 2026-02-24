@@ -8,8 +8,8 @@
 |            | static 메서드3 | import satatic = 정적메서드 자체를 사용할것이라고 선언 => 메소드 호출시 '클래스.메소드명' 하지 않고 바로 '메소드명 호출' 가능
 |            |                | import static 패키지 위치.메소드 => 정적메소드 사용 => 바로 '메소드명()' 호출 가능.
 |            |                | import static 패키지위치.클래스명.* => 바로 해당 클래스 내의 모든 메소드호출 사용가능.
-|            | 연슴문제&풀이1 | <img width="584" height="657" alt="image" src="https://github.com/user-attachments/assets/27113ba7-f3ca-4489-b0b6-313dd96f9e47" />
-|            | 연습문제&풀이2 |<img width="956" height="1095" alt="image" src="https://github.com/user-attachments/assets/13f20d16-00d1-4ae8-99fb-3ac33c3c06cf" />
+![연습문제&풀이1](<img width="584" height="657" alt="image" src="https://github.com/user-attachments/assets/27113ba7-f3ca-4489-b0b6-313dd96f9e47" />)
+![연습문제&풀이2](<img width="956" height="1095" alt="image" src="https://github.com/user-attachments/assets/13f20d16-00d1-4ae8-99fb-3ac33c3c06cf" />)
 
 | 2026-02-15 |    final 변수  | final = 최초 한번만 값 할당 가능 (값 변경 불가) 
 |            |                 | 단. 매개변수가 final이고 호출되어 힐딩되는 매개변수가 객체 일 경우 아래처럼 할당됨.
@@ -49,17 +49,59 @@
                             | (Child) poly.childMethod는 불가.  WHY? : 순서가 poly.childMethod가 먼저 실행되어 컴파일 오류 일어남.
                             | 업캐스팅(생략 권장) 『자식타입 -> 부모타입』 Parent parent1 = (Parent) child;
                             | ** 업캐스팅 목적 ** : 매개변수로 타입을 맞추기 위해서
-             |다운캐스팅과 주의점|<img width="564" height="228" alt="image" src="https://github.com/user-attachments/assets/073580b1-734c-486e-b1f3-db3a86d4f3c6" />
+![다운캐스팅과 주의점](<img width="564" height="228" alt="image" src="https://github.com/user-attachments/assets/073580b1-734c-486e-b1f3-db3a86d4f3c6" />)
                             | parent2에는 자식클래스의 정보가 메모리에 일절 없음. 그러므로 다운개스팅이 불가.
                             | 업캐스팅으로 부모타입에 담겼던 객체에서 다시 꺼내는 게 다운캐스팅
                             |-> Parent p = new Child(); // 메모리에 Child가 있음 (업캐스팅)
                             |-> Child c = (Child) p;    // 가능! 원래 Child였으니까 (다운캐스팅)
-
                | instanceof | instanceof란?
                             | 해당 객체가 어떤 인스턴스를 참조하고있는지 확인하기 위한 기능. (다운캐스팅 하기 전에 실제로 그 타입이 있는지 확인할 때 사용)
-                            |<img width="686" height="382" alt="image" src="https://github.com/user-attachments/assets/d3f8fe6f-9105-4221-a307-5d2a1927f3fa" />
-                            |=>instanceof로 타입 확인 후 안전하게 다운캐스팅하기
-                            |new Child() instanceof Parent => 트루로 나옴 **자식 객체는 부모 정보도 함께 메모리에 올라가기 때문에 부모 instanceof도 true**
+![instanceof로 타입 확인 후 안전하게 다운캐스팅하기](<img width="686" height="382" alt="image" src="https://github.com/user-attachments/assets/d3f8fe6f-9105-4221-a307-5d2a1927f3fa" />)
+                            |new Child() instanceof Parent => 트루로 나옴 **자식 객체는 부모 정보도 함께 메모리에 올라가기 때문에 부모 instanceof도 true**|
                             
-      | 다형성과 메서드 오버라이딩 | **오버라이딩 된 메서드가 항상 우선권을 가진다**
+  | 다형성과 메서드 오버라이딩 | **오버라이딩 된 메서드가 항상 우선권을 가진다**
                             | **오버라이딩은 실제 생성된 객체 기준으로 실행된다.** (부모만 객체생성되면 오버라이딩된 자식 메소드 실행 X)
+
+| 2026-02-24 |  다형성 활용  | Animal부모 (Dog, Cat, Cow, = 자식) => 자식을 같은 타입(부모타)으로 묶어서 모두 같은 타입을 사용하며 각자 자신의 메서드도 호출 할 수 있게 한다.
+                            | 오버라이딩 조건 : 반환타입, 메서드명, 매개변수가 같을것.
+![다형성활용](<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/826725e6-83e1-44cb-bfc8-172b86ca4d6c" />)
+                            |
+                            |↓
+![배열을 이용한 다형성 활용 (오버라이딩 된)](<img width="497" height="304" alt="image" src="https://github.com/user-attachments/assets/66024eca-1705-492b-b505-5726da542d4c" />)
+                            |
+                | 추상클래스 | "부모클래스가 실제 생성(객체)되면 안되는 클래스"
+														| 문법 = class 앞에 "abstract"를 붙임. => abstract class Animal
+														|
+								| 추상메서드 | "자식클래스가 반드시 오버라이딩 해야 하는 메서드"
+														| 문법 = "부모의 메서드 타입 앞"에 "abstract" 붙이기 => public abstract void sound();
+														|
+				**『추상메서드가 하나라도 있는 클래스』는 무조건 추상클래스로 선언해야한다**
+				**자식이 추상 메서드를 오버라이딩해서 구현하면 abstract 안 붙여도 됨**
+				**단, 만약 『자식이 추상 메서드를 오버라이딩 안 하면』 자식도 abstract 클래스가 되어야 함**
+														|
+|
+					 | 순수 추상클래스 | 실질적 기능없는 "깡통"클래스.
+					 									| 1. 인스턴스 생성 불가 (인터페이스도 추상이므로 객체생성 불가.)
+														| 2. 상속시 자식은 "모든 메서드"를 오버라이딩 해야한다.
+														| 3. 주로 다형성을 위해 사용됨.
+														| => **인터페이스의 조건** => 인터페이스가 된다면 굳이 추상클래스로 만들지 않고 인터페이스를 만듬.
+|
+								| 인터페이스 | 약간의 편의 기능 추가
+														| 1. 인터페이스의 메서드는 모두 "public" "abstract" 이다
+														| 2. 인터페이스의 접근제어자는 자동으로 public으로 만들어지며, private은 선언 불가이다.
+														| (인터페이스는 보통 공용으로 사용하기 위해 쓰이므로 public으로 쓰이는듯?)
+														| 3. 메서드에 "public" "abstract"는 생략 가능하다. (생략 권장)
+														| 4. 인터페이스는 **다중 상속**을 지원한다.
+														| 5. 자식 클래스는 implements 사용해야한다. (public class 클래스명 implements interface부모클래스명)
+|								(class Dog implements Animal, Runnable, Swimmable { })
+								→ (인터페이스 중 implements를 사용하는 자식 클래스는 부모가 여럿일 수 있다. = 모든 부모클래스의 메서드 오버라이딩구현 필요)
+|
+			 인터페이스의 멤버 변수 |	인터페이스(깡통.부모클래스)에서의 멤버변수는 "public static final"이 모두 포함된다
+			 											| public static final = 상수 => 상수는 모두 대문자 표기.
+														| 즉 인터페이스의 변수는 모두 대문자 표기이다.
+			 
+														
+													
+
+|
+|
